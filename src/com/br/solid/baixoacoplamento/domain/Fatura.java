@@ -1,4 +1,4 @@
-package com.br.solid.srp;
+package com.br.solid.baixoacoplamento.domain;
 
 public class Fatura {
 
