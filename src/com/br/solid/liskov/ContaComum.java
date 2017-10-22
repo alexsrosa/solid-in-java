@@ -1,29 +1,31 @@
 package com.br.solid.liskov;
 
-public class ContaComum {
-    protected double saldo;
+public class ContaComum implements Conta{
+
+    private ManipuladorDeSaldo manipuladorDeSaldo;
 
     public ContaComum() {
-        this.saldo = 0;
+        manipuladorDeSaldo = new ManipuladorDeSaldo();
     }
 
-    public void deposita(double valor) {
-        this.saldo += valor;
+    public void deposita(double valor){
+        this.manipuladorDeSaldo.deposita(valor);
     }
 
-    public void saca(double valor) {
-        if (valor <= this.saldo) {
-            this.saldo -= valor;
-        } else {
-            throw new IllegalArgumentException();
-        }
+    public void saca(double valor){
+        this.manipuladorDeSaldo.saca(valor);
+    }
+
+    @Override
+    public void executaRegrasAdicionais() {
+        this.rende();
     }
 
     public void rende() {
-        this.saldo += this.saldo * 0.01;
+        this.manipuladorDeSaldo.rende(0.01);
     }
 
     public double getSaldo() {
-        return saldo;
+        return this.manipuladorDeSaldo.getSaldo();
     }
 }

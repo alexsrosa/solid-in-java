@@ -6,19 +6,19 @@ import java.util.List;
 public class ProcessadorDeInvestimentos {
     public static void main(String[] args) {
 
-        for (ContaComum conta : contasDoBanco()) {
-            conta.rende();
+        for (Conta conta : contasDoBanco()) {
+            conta.executaRegrasAdicionais();
 
             System.out.println("Novo Saldo:");
             System.out.println(conta.getSaldo());
         }
     }
 
-    private static List<ContaComum> contasDoBanco() {
+    private static List<Conta> contasDoBanco() {
         return Arrays.asList(umaContaCom(100), umaContaCom(150), contaDeEstudanteCom(200));
     }
 
-    private static ContaComum contaDeEstudanteCom(double amount) {
+    private static ContaDeEstudante contaDeEstudanteCom(double amount) {
         ContaDeEstudante c = new ContaDeEstudante();
         c.deposita(amount);
         return c;
