@@ -1,9 +1,11 @@
 package com.br.solid.encapsulamento;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class Fatura {
+
     private String cliente;
     private double valor;
     private List<Pagamento> pagamentos;
@@ -25,15 +27,27 @@ public class Fatura {
     }
 
     public List<Pagamento> getPagamentos() {
-        return pagamentos;
+        return Collections.unmodifiableList(pagamentos);
     }
 
-    public boolean isPago() {
-        return pago;
+    public void adicionaPagamento(Pagamento pagamento) {
+        this.pagamentos.add(pagamento);
+        this.setPago();
     }
 
-    public void setPago(boolean pago) {
-        this.pago = pago;
+    private void setPago() {
+        if (this.valorTotalDosPagamento() >= this.getValor()){
+            this.pago = true;
+        }
     }
 
+    private double valorTotalDosPagamento() {
+        double valor = 0;
+
+        for (Pagamento pagamento : this.getPagamentos()) {
+            valor += pagamento.getValor();
+
+        }
+        return valor;
+    }
 }
